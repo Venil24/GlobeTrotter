@@ -89,9 +89,18 @@ export default function DashboardScreen() {
       {/* Greeting and Budget Highlights Panel */}
       <section className="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-8 -mt-20 relative z-20">
         <div className="bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-6 md:p-8 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-2 text-center md:text-left">
+          <div className="space-y-3 text-center md:text-left">
             <h2 className="text-display-md font-bold text-on-surface">Welcome back, {user?.name || "Explorer"}!</h2>
             <p className="text-body-md text-on-surface-variant">Ready to design your next travel stop? Here is a summary of your premium itineraries.</p>
+            <div>
+              <button
+                onClick={() => navigateTo('create-trip')}
+                className="px-5 py-2.5 bg-primary text-on-primary rounded-xl text-sm font-bold hover:bg-primary-container transition-all shadow-md cursor-pointer border-none inline-flex items-center gap-2"
+              >
+                <span className="material-symbols-outlined text-[18px]">auto_awesome</span>
+                1-Click Auto-Plan Tour
+              </button>
+            </div>
           </div>
           
           {/* Budget Widget */}

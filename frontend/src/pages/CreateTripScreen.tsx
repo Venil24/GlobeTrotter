@@ -34,7 +34,7 @@ function tiersForDays(days: number): string[] {
 
 // ══════════════════════════════════════════════════════════════
 export default function CreateTripScreen() {
-  const { createTrip, navigateTo } = useContext(AppContext) as any;
+  const { createTrip, generateAutoTrip, navigateTo } = useContext(AppContext) as any;
 
   const [title, setTitle] = useState('');
   const [destination, setDestination] = useState('');
@@ -46,6 +46,17 @@ export default function CreateTripScreen() {
   const [description, setDescription] = useState('');
   const [coverUrl, setCoverUrl] = useState('');
   const [selected, setSelected] = useState<Record<string, boolean>>({});
+
+  // ── Auto-Plan State ──
+  const [isAutoPlanning, setIsAutoPlanning] = useState(false);
+  const [autoPlanStep, setAutoPlanStep] = useState('');
+  const [showAutoModal, setShowAutoModal] = useState(false);
+  const [autoDest, setAutoDest] = useState('');
+  const [autoStart, setAutoStart] = useState('');
+  const [autoEnd, setAutoEnd] = useState('');
+  const [autoBudget, setAutoBudget] = useState('25000');
+  const [autoTravelers, setAutoTravelers] = useState('2');
+  const [autoCategory, setAutoCategory] = useState('Leisure');
 
   const matchedKey = useMemo(() => matchDestination(destination), [destination]);
   const matchedDest = matchedKey ? DESTINATION_DATA[matchedKey] : null;
@@ -69,6 +80,73 @@ export default function CreateTripScreen() {
     if (!title) setTitle(`${key} Adventure`);
     if (!coverUrl) setCoverUrl(DESTINATION_DATA[key].image);
     setSelected({});
+  };
+
+  const handleAutoPlanTrigger = async (
+    targetDest?: string,
+    targetStart?: string,
+    targetEnd?: string,
+    targetBudget?: string,
+    targetTravelers?: string,
+    targetCategory?: string
+  ) => {
+    const dest = (targetDest || destination || autoDest).trim();
+    const sDate = targetStart || startDate || autoStart;
+    const eDate = targetEnd || endDate || autoEnd;
+    const bud = targetBudget || budget || autoBudget;
+    const trav = targetTravelers || travelers || autoTravelers;
+    const cat = targetCategory || category || autoCategory;
+
+    if (!dest || !sDate || !eDate) {
+      setAutoDest(dest || destination);
+      setAutoStart(sDate || startDate);
+      setAutoEnd(eDate || endDate);
+      setAutoBudget(bud || budget || '25000');
+      setAutoTravelers(trav || travelers || '2');
+      setAutoCategory(cat || category || 'Leisure');
+      setShowAutoModal(true);
+      return;
+    }
+
+    if (new Date(eDate) < new Date(sDate)) {
+      alert('End date cannot be earlier than start date.');
+      return;
+    }
+
+    try {
+      setIsAutoPlanning(true);
+      setAutoPlanStep(`Analyzing top cultural attractions & spots in ${dest}...`);
+
+      const t1 = setTimeout(() => {
+        setAutoPlanStep(`Scheduling morning, afternoon & evening activities for each day...`);
+      }, 1100);
+
+      const t2 = setTimeout(() => {
+        setAutoPlanStep(`Calculating daily expense estimates & optimizing timeline...`);
+      }, 2300);
+
+      const newTrip = await generateAutoTrip({
+        destination: dest,
+        startDate: sDate,
+        endDate: eDate,
+        budget: parseFloat(bud) || 25000,
+        travelers: parseInt(trav) || 1,
+        category: cat,
+        interests: ['Sightseeing', 'Food', 'Culture', 'Photography']
+      });
+
+      clearTimeout(t1);
+      clearTimeout(t2);
+
+      if (newTrip) {
+        setShowAutoModal(false);
+        setIsAutoPlanning(false);
+        navigateTo('build-itinerary', newTrip.id);
+      }
+    } catch (err) {
+      setIsAutoPlanning(false);
+      alert('Error generating auto itinerary. Please try again.');
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -118,12 +196,54 @@ export default function CreateTripScreen() {
     <div className="flex-grow pt-8 pb-32 px-4 md:px-8 max-w-[1280px] mx-auto w-full">
 
       {/* Header */}
-      <header className="mb-10">
+      <header className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-on-surface mb-2">Plan a New Trip ✈️</h1>
         <p className="text-on-surface-variant">
-          Pick a destination, set your dates, choose activities — and you're off.
+          Pick a destination, set your dates, choose activities — or let our 1-click generator build your entire tour.
         </p>
       </header>
+
+      {/* ── AUTO-PLAN BANNER CARD ── */}
+      <div className="mb-10 bg-gradient-to-r from-primary/15 via-secondary/15 to-primary-container/20 border border-primary/30 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+        <div className="flex items-start gap-4">
+          <div className="w-14 h-14 rounded-2xl bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-md">
+            <span className="material-symbols-outlined text-[30px]">auto_awesome</span>
+          </div>
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] uppercase font-bold tracking-wider bg-primary text-on-primary">
+                Smart Feature
+              </span>
+              <h2 className="text-xl md:text-2xl font-bold text-on-surface">1-Click Full-Tour Generator</h2>
+            </div>
+            <p className="text-sm text-on-surface-variant max-w-2xl">
+              Select your destination and dates — our system will instantly design an authentic day-by-day tour with morning, afternoon, and evening activities, locations, and budget breakdown.
+            </p>
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={() => {
+            if (destination && startDate && endDate) {
+              handleAutoPlanTrigger(destination, startDate, endDate, budget, travelers, category);
+            } else {
+              setAutoDest(destination);
+              setAutoStart(startDate);
+              setAutoEnd(endDate);
+              setAutoBudget(budget);
+              setAutoTravelers(travelers);
+              setAutoCategory(category);
+              setShowAutoModal(true);
+            }
+          }}
+          className="w-full md:w-auto px-8 py-3.5 bg-primary text-on-primary rounded-xl text-sm font-bold hover:bg-primary-container hover:text-on-primary-container transition-all shadow-md cursor-pointer border-none flex items-center justify-center gap-2 shrink-0 group hover:scale-[1.02]"
+        >
+          <span className="material-symbols-outlined text-[20px] text-amber-300 group-hover:rotate-12 transition-transform">
+            auto_awesome
+          </span>
+          Auto-Plan My Entire Tour
+        </button>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-10">
 
@@ -181,7 +301,7 @@ export default function CreateTripScreen() {
               Or type a custom destination *
             </label>
             <input
-              type="text" required placeholder="e.g. Kerala, Kyoto, Istanbul…"
+              type="text" required placeholder="e.g. Kerala, Kyoto, Istanbul, Ladakh…"
               value={destination} onChange={e => setDestination(e.target.value)}
               className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 text-sm text-on-surface focus:border-primary outline-none"
             />
@@ -380,15 +500,15 @@ export default function CreateTripScreen() {
           <section className="bg-surface-container-lowest border border-outline-variant/30 rounded-xl p-6 text-center">
             <span className="material-symbols-outlined text-[36px] text-outline-variant mb-2 block">travel_explore</span>
             <p className="text-sm text-on-surface-variant">
-              No pre-loaded suggestions for <strong>"{destination}"</strong> yet.
+              Custom destination: <strong>"{destination}"</strong>
             </p>
             <p className="text-xs text-on-surface-variant mt-1">
-              You can still create the trip and add activities manually in the Build Itinerary screen!
+              Tip: Click the <strong>"Auto-Plan My Entire Tour"</strong> button above or below to generate a tailored day-by-day itinerary automatically!
             </p>
           </section>
         )}
 
-        {/* Submit */}
+        {/* Submit Actions */}
         <div className="flex flex-col sm:flex-row gap-4 justify-end pt-2">
           <button
             type="button" onClick={() => navigateTo('my-trips')}
@@ -397,14 +517,161 @@ export default function CreateTripScreen() {
             Cancel
           </button>
           <button
+            type="button"
+            onClick={() => handleAutoPlanTrigger(destination, startDate, endDate, budget, travelers, category)}
+            className="px-8 py-3 bg-secondary text-on-secondary rounded-lg text-sm font-bold hover:bg-secondary-container hover:text-on-secondary-container transition-colors shadow-sm cursor-pointer border-none flex items-center justify-center gap-2"
+          >
+            <span className="material-symbols-outlined text-[18px]">auto_awesome</span>
+            Auto-Plan Tour (1-Click)
+          </button>
+          <button
             type="submit"
             className="px-10 py-3 bg-primary text-on-primary rounded-lg text-sm font-bold hover:bg-primary-container transition-colors shadow-sm cursor-pointer border-none flex items-center justify-center gap-2"
           >
             <span className="material-symbols-outlined text-[20px]">rocket_launch</span>
-            Create Trip & Start Planning
+            Create Custom Trip
           </button>
         </div>
       </form>
+
+      {/* ── AUTO PLAN MODAL ── */}
+      {showAutoModal && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-surface rounded-2xl border border-outline-variant/40 shadow-2xl max-w-lg w-full p-6 md:p-8 relative">
+            <button
+              onClick={() => setShowAutoModal(false)}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-surface-container text-on-surface-variant bg-transparent border-none cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[20px]">close</span>
+            </button>
+
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center shadow">
+                <span className="material-symbols-outlined text-[24px]">auto_awesome</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-on-surface">Auto-Plan Your Tour</h3>
+                <p className="text-xs text-on-surface-variant">Instant full itinerary generated for your dates</p>
+              </div>
+            </div>
+
+            <div className="space-y-4 my-6">
+              <div>
+                <label className="block text-xs font-semibold text-on-surface-variant mb-1">Destination *</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Kyoto, Paris, Goa, Ladakh..."
+                  value={autoDest}
+                  onChange={e => setAutoDest(e.target.value)}
+                  className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-2.5 text-sm text-on-surface focus:border-primary outline-none"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-on-surface-variant mb-1">Start Date *</label>
+                  <input
+                    type="date"
+                    required
+                    value={autoStart}
+                    onChange={e => setAutoStart(e.target.value)}
+                    className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-on-surface-variant mb-1">End Date *</label>
+                  <input
+                    type="date"
+                    required
+                    value={autoEnd}
+                    min={autoStart}
+                    onChange={e => setAutoEnd(e.target.value)}
+                    className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary outline-none"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-on-surface-variant mb-1">Budget (₹)</label>
+                  <input
+                    type="number"
+                    min="0"
+                    placeholder="25000"
+                    value={autoBudget}
+                    onChange={e => setAutoBudget(e.target.value)}
+                    className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-on-surface-variant mb-1">Travelers</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="20"
+                    value={autoTravelers}
+                    onChange={e => setAutoTravelers(e.target.value)}
+                    className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary outline-none"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-on-surface-variant mb-1">Travel Style</label>
+                <select
+                  value={autoCategory}
+                  onChange={e => setAutoCategory(e.target.value)}
+                  className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-2 text-sm text-on-surface focus:border-primary outline-none cursor-pointer"
+                >
+                  {['Leisure', 'Adventure', 'Cultural', 'Business', 'Honeymoon', 'Family', 'Solo Backpacking'].map(c => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => setShowAutoModal(false)}
+                className="px-5 py-2.5 text-xs font-semibold text-on-surface-variant hover:bg-surface-container rounded-lg bg-transparent border-none cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => handleAutoPlanTrigger(autoDest, autoStart, autoEnd, autoBudget, autoTravelers, autoCategory)}
+                className="px-6 py-2.5 bg-primary text-on-primary rounded-lg text-xs font-bold hover:bg-primary-container shadow-md cursor-pointer border-none flex items-center gap-1.5"
+              >
+                <span className="material-symbols-outlined text-[16px]">rocket_launch</span>
+                Generate Complete Tour
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── LOADING OVERLAY ── */}
+      {isAutoPlanning && (
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center text-white">
+          <div className="relative mb-6">
+            <div className="w-20 h-20 rounded-full border-4 border-primary/30 border-t-primary animate-spin" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="material-symbols-outlined text-primary text-[32px] animate-pulse">
+                flight_takeoff
+              </span>
+            </div>
+          </div>
+          <h3 className="text-2xl font-bold mb-2">Designing Your Day-by-Day Itinerary</h3>
+          <p className="text-primary-container text-sm font-semibold animate-pulse max-w-md">
+            {autoPlanStep || "Generating comprehensive itinerary..."}
+          </p>
+          <p className="text-white/60 text-xs mt-4">
+            Curating morning, afternoon & evening activities, local food, and optimal routes...
+          </p>
+        </div>
+      )}
     </div>
   );
 }

@@ -16,6 +16,7 @@ interface AppContextProps {
   logout: () => void;
   updateProfile: (name: string, bio: string, avatar: string, countries: number, language?: string) => Promise<void>;
   createTrip: (tripData: any) => Promise<void>;
+  generateAutoTrip: (planData: any) => Promise<Trip | null>;
   updateTrip: (tripId: number, tripData: any) => Promise<void>;
   deleteTrip: (tripId: number) => Promise<void>;
   addActivity: (tripId: number, stopId: number, actData: any) => Promise<void>;
@@ -260,6 +261,27 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  const generateAutoTrip = async (planData: any): Promise<Trip | null> => {
+    try {
+      const res = await api.post('/ai/plan-trip', {
+        destination: planData.destination,
+        start_date: planData.startDate,
+        end_date: planData.endDate,
+        budget: parseFloat(String(planData.budget || 25000)) || 25000.0,
+        travelers: parseInt(String(planData.travelers || 1)) || 1,
+        category: planData.category || "Leisure",
+        interests: planData.interests || []
+      });
+      const newTrip = res.data;
+      setTrips(prev => [...prev, newTrip]);
+      await fetchTrips();
+      return newTrip;
+    } catch (err) {
+      console.error("Auto plan trip error:", err);
+      throw err;
+    }
+  };
+
   const updateTrip = async (tripId: number, tripData: any) => {
     try {
       const res = await api.put(`/trips/${tripId}`, {
@@ -411,6 +433,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       logout,
       updateProfile,
       createTrip,
+      generateAutoTrip,
       updateTrip,
       deleteTrip,
       addActivity,

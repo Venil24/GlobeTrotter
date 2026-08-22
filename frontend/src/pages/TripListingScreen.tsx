@@ -130,22 +130,31 @@ export default function TripListingScreen() {
             <h1 className="text-display-lg font-display-lg text-on-surface mb-2">My Trips</h1>
             <p className="text-body-md font-body-md text-on-surface-variant">View, plan, and analyze your custom itineraries.</p>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-label-md font-medium text-on-surface-variant">Filter Category:</span>
-            <div className="flex rounded-lg border border-outline-variant bg-surface-container-lowest p-1">
-              {['All', 'Leisure', 'Business'].map(cat => (
-                <button
-                  key={cat}
-                  onClick={() => setFilter(cat)}
-                  className={`px-4 py-1.5 rounded-md text-label-md font-medium transition-all border-none cursor-pointer ${
-                    filter === cat 
-                      ? 'bg-primary text-on-primary shadow-sm' 
-                      : 'text-on-surface-variant hover:text-on-surface bg-transparent'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={() => navigateTo('create-trip')}
+              className="px-5 py-2 bg-primary text-on-primary rounded-lg text-sm font-bold hover:bg-primary-container transition-all shadow-sm cursor-pointer border-none flex items-center gap-1.5"
+            >
+              <span className="material-symbols-outlined text-[18px]">auto_awesome</span>
+              Plan / Auto-Plan Tour
+            </button>
+            <div className="flex items-center gap-2">
+              <span className="text-label-md font-medium text-on-surface-variant">Filter:</span>
+              <div className="flex rounded-lg border border-outline-variant bg-surface-container-lowest p-1">
+                {['All', 'Leisure', 'Business'].map(cat => (
+                  <button
+                    key={cat}
+                    onClick={() => setFilter(cat)}
+                    className={`px-4 py-1.5 rounded-md text-label-md font-medium transition-all border-none cursor-pointer ${
+                      filter === cat 
+                        ? 'bg-primary text-on-primary shadow-sm' 
+                        : 'text-on-surface-variant hover:text-on-surface bg-transparent'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
