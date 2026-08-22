@@ -16,6 +16,7 @@ from app.api.recommendations import router as recommendations_router
 from app.api.profile import router as profile_router
 from app.api.posts import router as posts_router
 from app.api.ai_planner import router as ai_planner_router
+from app.api.admin import router as admin_router
 
 # Initialize database tables on startup
 Base.metadata.create_all(bind=engine)
@@ -54,6 +55,7 @@ app.include_router(recommendations_router, prefix="/api")
 app.include_router(profile_router, prefix="/api")
 app.include_router(posts_router, prefix="/api")
 app.include_router(ai_planner_router, prefix="/api")
+app.include_router(admin_router, prefix="/api")
 
 @app.get("/")
 def read_root():
