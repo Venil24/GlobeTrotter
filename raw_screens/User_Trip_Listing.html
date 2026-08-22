@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Trip Listing - GlobeTrotter</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#596980",
+                        "on-primary-container": "#e3e6ff",
+                        "error": "#ba1a1a",
+                        "background": "#f7f9fb",
+                        "surface-variant": "#e0e3e5",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-error": "#ffffff",
+                        "secondary": "#565e74",
+                        "on-tertiary-container": "#dbe9ff",
+                        "primary-fixed": "#dce1ff",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#434656",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#d8dadc",
+                        "secondary-container": "#dae2fd",
+                        "on-surface": "#191c1e",
+                        "surface": "#f7f9fb",
+                        "outline": "#737688",
+                        "surface-container": "#eceef0",
+                        "on-background": "#191c1e",
+                        "tertiary": "#415166",
+                        "primary-container": "#0055ff",
+                        "surface-bright": "#f7f9fb",
+                        "inverse-primary": "#b6c4ff",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-tint": "#004dea",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "on-primary-fixed": "#001551",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary": "#0041c8",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#131b2e",
+                        "tertiary-fixed": "#d3e4fe",
+                        "secondary-fixed": "#dae2fd",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-secondary-container": "#5c647a",
+                        "outline-variant": "#c3c5d9",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-container-low": "#f2f4f6",
+                        "on-primary-fixed-variant": "#0039b3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base-unit": "4px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "container-max-width": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Geist"],
+                        "label-sm": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "label-md": ["Geist"],
+                        "body-md": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "body-lg": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .glass-panel {
+                @apply bg-white/80 backdrop-blur-md border border-white/40 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)];
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-outline-variant/30 shadow-sm flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto h-16">
+<div class="text-headline-md font-headline-md font-bold text-primary tracking-tight">GlobeTrotter</div>
+<div class="hidden md:flex space-x-8">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Discover</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-bold" href="#">My Trips</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Community</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Calendar</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-primary hover:bg-surface-variant/50 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="text-primary hover:bg-surface-variant/50 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="A small, circular avatar portrait of a professional individual against a clean white background. High resolution, bright studio lighting. Professional Corporate Modernism style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB5PYYX-L07MP7y9h3vEEF87BQr5m4rTvTckzG9CAWt-pSuwscpAWrfAuEDHzqMvJFQ84GX4FJWKi9ZwjsB4NGYuv0yOttUE2tNEsMrQSM-OZQVQr5Ssmn763OItfeLuQFCKVhJRtP_RKQeybL2D5F6d77J1RRT12iqqj-f8OfGuHeo0d5v8Iv5INTZVCKbnHo9Pr06RSP4hEPv7t3F5NClw8Ho96MYJqOZC9961sl4zLhUOSrelKO"/>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-8 space-y-12">
+<!-- Header & Controls -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-outline-variant/30 pb-6">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-2">My Trips</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Manage and review your travel itineraries.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+<!-- Search Input -->
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-body-md font-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="Search trips..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-label-md font-label-md text-on-surface-variant hover:bg-surface-variant/50 transition-colors">
+<span class="material-symbols-outlined text-[18px]">sort</span> Group by
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-label-md font-label-md text-on-surface-variant hover:bg-surface-variant/50 transition-colors">
+<span class="material-symbols-outlined text-[18px]">tune</span> Filter
+                    </button>
+</div>
+</div>
+</header>
+<!-- Section: Ongoing -->
+<section class="space-y-6">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Ongoing</h2>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<!-- Horizontal Card -->
+<article class="glass-panel rounded-xl overflow-hidden flex flex-col md:flex-row hover:shadow-[0_12px_32px_rgba(15,23,42,0.12)] transition-shadow duration-300">
+<div class="w-full md:w-1/3 lg:w-1/4 h-48 md:h-auto relative">
+<img class="w-full h-full object-cover absolute inset-0" data-alt="A breathtaking, wide-angle photograph of the Swiss Alps during a crisp, clear morning. The sun gently illuminates the snow-capped peaks, casting soft, cool blue shadows in the valleys below. The sky is a gradient of pale dawn colors. High resolution, premium travel photography style, Corporate Modernism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNFMLwxPyh3J3gDkEU5M5ML6aiSgosMkEZRj3HYOai8FIY04nm56ci-mEjLHIEq7pYp3arBLKKC1Q7vWfEwkCXl8_jAj2eFOAydjLcZLaGC-AY8fjv_qgSapKQuQ4Dbv9UUFJLMOWQUi4xM__9cLLI-2hLDrflU4JshW5JVlqT5wjf85RogFjCDUaZALOzKv1qAJO2S61NcdcdDK8Ec4VS59V84aGv9wQefI9kEVtdS2KYO_97QG2i"/>
+</div>
+<div class="p-6 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-headline-md font-headline-md text-on-surface">Alpine Retreat</h3>
+<span class="px-3 py-1 bg-primary-container text-on-primary-container rounded-full text-label-sm font-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">flight_takeoff</span> In Progress
+                                </span>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span> Oct 12, 2024 - Oct 20, 2024
+                            </p>
+<p class="text-body-md font-body-md text-on-surface-variant line-clamp-2">A luxurious week-long stay in a premium chalet, featuring guided alpine hikes, private culinary experiences, and exclusive spa treatments overlooking the breathtaking valley.</p>
+</div>
+<div class="mt-6 flex justify-end">
+<button class="px-6 py-2 bg-primary text-on-primary rounded-lg text-label-md font-label-md hover:bg-primary/90 transition-colors shadow-sm">View Trip</button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Section: Upcoming -->
+<section class="space-y-6">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Upcoming</h2>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<!-- Horizontal Card -->
+<article class="glass-panel rounded-xl overflow-hidden flex flex-col md:flex-row hover:shadow-[0_12px_32px_rgba(15,23,42,0.12)] transition-shadow duration-300">
+<div class="w-full md:w-1/3 lg:w-1/4 h-48 md:h-auto relative">
+<img class="w-full h-full object-cover absolute inset-0" data-alt="A modern, high-contrast aerial view of Tokyo at twilight. The city grid is illuminated with vibrant neon lights against a deep blue evening sky. Sleek, contemporary architectural lines dominate the foreground. Premium urban photography, crisp and structured." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPVG5zYiVfh4Lhn_mf-ectEYcaJgz_aPeTVocwbunJebFjfPsfmt4WsJ8UgcT1hP6I7mWcD4pZ5tf6mDXXl3tEAOyEGKFSuCevfklzVAhejqv0r9lybc6BX9LOePzxDd4iGytRenp4orhWawmIecSt7A75Zp5D6tdhY-lhksaiQvp3dWguFEQP7huIEsF0d57ButkWV_dhmiARUILhdzA48YxlR1d95dwHK8cvvu7I6UzULS_PG0AN"/>
+</div>
+<div class="p-6 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-headline-md font-headline-md text-on-surface">Tokyo Business Summit</h3>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span> Nov 05, 2024 - Nov 12, 2024
+                            </p>
+<p class="text-body-md font-body-md text-on-surface-variant line-clamp-2">Executive travel package for the annual tech summit. Includes premium lounge access, luxury central accommodation, and curated networking dinners in top-tier restaurants.</p>
+</div>
+<div class="mt-6 flex justify-end gap-3">
+<button class="px-6 py-2 bg-surface-container-lowest text-on-surface border border-outline-variant rounded-lg text-label-md font-label-md hover:bg-surface-variant/50 transition-colors">Edit Details</button>
+<button class="px-6 py-2 bg-primary text-on-primary rounded-lg text-label-md font-label-md hover:bg-primary/90 transition-colors shadow-sm">View Trip</button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Section: Completed -->
+<section class="space-y-6 opacity-75">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-surface-variant"></div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Completed</h2>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<!-- Horizontal Card -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col md:flex-row hover:shadow-[0_4px_12px_rgba(15,23,42,0.08)] transition-shadow duration-300">
+<div class="w-full md:w-1/3 lg:w-1/4 h-48 md:h-auto relative grayscale-[20%]">
+<img class="w-full h-full object-cover absolute inset-0" data-alt="A serene, minimalist composition of an empty beach in the Maldives during golden hour. Gentle turquoise waves lap onto pristine white sand. The lighting is soft and warm. Clean, uncluttered aesthetic, professional travel imagery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-f9nMUI79O8d-3oWnLOezyf3OdGSowd7q4PqtKOO1SaOJD5h4b1b2Yu8Adzrw7p9Z52xpXVxDTdOeeKX72EPudX7Io5CnY1ftsxuxEjMCwY-kRRLwmIeEj9sUNUoinQayabpdyk96mnBxSuXGZ8jCLV9rJTNR2paODfoMeUzmFB-wS8jTMofi3vnBiqs2eoKoGljKi-CR6Oz6JHJ-ZraTJibokzW6KBcsN26A6b6CMdYC_O9OT7Wb"/>
+</div>
+<div class="p-6 flex flex-col justify-between flex-grow">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-headline-md font-headline-md text-on-surface">Maldives Retreat</h3>
+<span class="text-label-sm font-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Finished
+                                </span>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span> Aug 10, 2024 - Aug 17, 2024
+                            </p>
+<p class="text-body-md font-body-md text-on-surface-variant line-clamp-2">A restful leisure escape focusing on wellness and disconnect. Highlights included private villa accommodations, daily yoga sessions, and extensive marine exploration.</p>
+</div>
+<div class="mt-6 flex justify-end">
+<button class="px-6 py-2 bg-transparent text-primary rounded-lg text-label-md font-label-md hover:bg-surface-variant/50 transition-colors">View Trip</button>
+</div>
+</div>
+</article>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="bg-surface/90 dark:bg-inverse-surface/90 backdrop-blur-xl fixed bottom-0 w-full rounded-t-xl z-50 border-t border-outline-variant/20 shadow-lg flex justify-around items-center h-16 px-4 md:hidden">
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant active:bg-surface-container rounded-lg p-2 transition-all" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant active:bg-surface-container rounded-lg p-2 transition-all" href="#">
+<span class="material-symbols-outlined mb-1">explore</span>
+<span class="text-label-sm font-label-sm">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant active:bg-surface-container rounded-lg p-2 transition-all" href="#">
+<span class="material-symbols-outlined mb-1">add_circle</span>
+<span class="text-label-sm font-label-sm">Plan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-inverse-primary font-bold active:bg-surface-container rounded-lg p-2 transition-all scale-90 duration-75" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="text-label-sm font-label-sm">Profile</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface w-full py-12 px-margin-desktop mt-auto border-t border-outline-variant shadow-none hidden md:block">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max-width mx-auto">
+<div class="col-span-1">
+<div class="text-headline-md font-headline-md text-primary font-bold mb-4">GlobeTrotter</div>
+<p class="text-body-md font-body-md text-on-surface-variant">© 2024 GlobeTrotter Premium Travel. All rights reserved.</p>
+</div>
+<div class="col-span-1 md:col-start-3 flex flex-col gap-2">
+<a class="text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms</a>
+<a class="text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy</a>
+</div>
+<div class="col-span-1 flex flex-col gap-2">
+<a class="text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Careers</a>
+<a class="text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Press</a>
+</div>
+</div>
+</footer>
+</body></html>

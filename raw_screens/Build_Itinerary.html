@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GlobeTrotter - Build Itinerary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#596980",
+                      "on-primary-container": "#e3e6ff",
+                      "error": "#ba1a1a",
+                      "background": "#f7f9fb",
+                      "surface-variant": "#e0e3e5",
+                      "error-container": "#ffdad6",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "on-error": "#ffffff",
+                      "secondary": "#565e74",
+                      "on-tertiary-container": "#dbe9ff",
+                      "primary-fixed": "#dce1ff",
+                      "on-secondary": "#ffffff",
+                      "on-surface-variant": "#434656",
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "on-error-container": "#93000a",
+                      "surface-dim": "#d8dadc",
+                      "secondary-container": "#dae2fd",
+                      "on-surface": "#191c1e",
+                      "surface": "#f7f9fb",
+                      "outline": "#737688",
+                      "surface-container": "#eceef0",
+                      "on-background": "#191c1e",
+                      "tertiary": "#415166",
+                      "primary-container": "#0055ff",
+                      "surface-bright": "#f7f9fb",
+                      "inverse-primary": "#b6c4ff",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "surface-container-high": "#e6e8ea",
+                      "surface-tint": "#004dea",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "on-primary-fixed": "#001551",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "primary": "#0041c8",
+                      "primary-fixed-dim": "#b6c4ff",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#131b2e",
+                      "tertiary-fixed": "#d3e4fe",
+                      "secondary-fixed": "#dae2fd",
+                      "on-secondary-fixed-variant": "#3f465c",
+                      "on-secondary-container": "#5c647a",
+                      "outline-variant": "#c3c5d9",
+                      "inverse-surface": "#2d3133",
+                      "surface-container-highest": "#e0e3e5",
+                      "surface-container-low": "#f2f4f6",
+                      "on-primary-fixed-variant": "#0039b3"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base-unit": "4px",
+                      "margin-desktop": "40px",
+                      "gutter": "24px",
+                      "margin-mobile": "16px",
+                      "container-max-width": "1280px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Geist"],
+                      "label-sm": ["Geist"],
+                      "headline-lg": ["Geist"],
+                      "headline-md": ["Geist"],
+                      "label-md": ["Geist"],
+                      "body-md": ["Geist"],
+                      "display-lg": ["Geist"],
+                      "body-lg": ["Geist"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-outline-variant/30 shadow-sm flex justify-between items-center w-full px-margin-desktop max-w-container-max-width mx-auto h-16">
+<div class="flex items-center gap-8">
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary tracking-tight">GlobeTrotter</span>
+<div class="hidden md:flex gap-6">
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 text-label-md font-label-md" href="#">Discover</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 text-label-md font-label-md" href="#">My Trips</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 text-label-md font-label-md" href="#">Community</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 text-label-md font-label-md" href="#">Calendar</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-primary hover:bg-surface-variant p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-variant border border-outline flex items-center justify-center overflow-hidden">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="A portrait of a confident business traveler in a modern airport lounge, wearing a tailored navy suit. Soft, diffused lighting creates a premium, professional atmosphere. Neutral light-mode background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC87YiuHYVXkEQtxEth_8wR1OMfDrZCALWbE3s2eKI7Y8vQa9bJcf9Wg9KVSeO8m9DTpav7o8IpbrzbXsrDAm-0mstb0wczNpNaO0cc4Vg08XLzdIoWmawCAIX_-Xfjrz9keN8htnoIU_4et2PvkQ0H_PVdigBALctoubzo72MM1ttwnZgo9mCjIPoDh06Gh98mlPVQa7VpdTFnDNwYdDLGJMtsALnDrtMBeq58HduUg8LgG9eEobsi"/>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-12">
+<div class="mb-12 flex justify-between items-end">
+<div>
+<h1 class="text-display-lg font-display-lg text-on-surface mb-2">Build Itinerary</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Plan your perfect trip to Japan, section by section.</p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-lg text-label-md font-label-md shadow-sm hover:shadow-md transition-shadow flex items-center gap-2">
+<span class="material-symbols-outlined">save</span>
+                Save Itinerary
+            </button>
+</div>
+<!-- Itinerary Timeline -->
+<div class="relative border-l-2 border-outline-variant ml-4 md:ml-8 pl-8 md:pl-12 space-y-12 pb-12">
+<!-- Section 1 -->
+<div class="relative group">
+<!-- Timeline Marker -->
+<div class="absolute -left-[43px] md:-left-[59px] top-6 w-5 h-5 rounded-full bg-primary border-4 border-surface shadow-sm"></div>
+<div class="bg-surface border border-outline-variant rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow group-hover:border-primary/50 relative">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 border-b border-outline-variant/30 pb-6">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface flex items-center gap-3">
+                                Tokyo Exploration
+                                <button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">edit</span></button>
+</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Arrival and initial city tours.</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container px-4 py-2 rounded-lg flex items-center gap-2 border border-outline-variant/50">
+<span class="material-symbols-outlined text-tertiary text-sm">calendar_month</span>
+<span class="text-label-md font-label-md text-on-surface">Oct 12 - Oct 15</span>
+</div>
+<div class="bg-surface-container px-4 py-2 rounded-lg flex items-center gap-2 border border-outline-variant/50">
+<span class="material-symbols-outlined text-tertiary text-sm">payments</span>
+<span class="text-label-md font-label-md text-on-surface">$1,200</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4 bg-surface-container-lowest border border-outline-variant rounded-lg p-4 hover:border-primary transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined">flight_land</span>
+</div>
+<div class="flex-grow">
+<h4 class="text-label-md font-label-md text-on-surface">Narita Airport Arrival</h4>
+<p class="text-body-sm text-on-surface-variant">Transfer to Shinjuku hotel.</p>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-lowest border border-outline-variant rounded-lg p-4 hover:border-primary transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined">hotel</span>
+</div>
+<div class="flex-grow">
+<h4 class="text-label-md font-label-md text-on-surface">Check-in: Park Hyatt Tokyo</h4>
+<p class="text-body-sm text-on-surface-variant">Rest and acclimate.</p>
+</div>
+</div>
+</div>
+<button class="mt-6 text-primary text-label-md font-label-md flex items-center gap-2 hover:underline">
+<span class="material-symbols-outlined text-sm">add</span> Add Activity
+                    </button>
+</div>
+</div>
+<!-- Section 2 -->
+<div class="relative group">
+<div class="absolute -left-[43px] md:-left-[59px] top-6 w-5 h-5 rounded-full bg-surface border-4 border-outline shadow-sm group-hover:border-primary transition-colors"></div>
+<div class="bg-surface border border-outline-variant rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow group-hover:border-primary/50">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 border-b border-outline-variant/30 pb-6">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface flex items-center gap-3">
+                                Kyoto Cultural Immersion
+                                <button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined text-lg">edit</span></button>
+</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Temples, shrines, and traditional experiences.</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container px-4 py-2 rounded-lg flex items-center gap-2 border border-outline-variant/50">
+<span class="material-symbols-outlined text-tertiary text-sm">calendar_month</span>
+<span class="text-label-md font-label-md text-on-surface">Oct 16 - Oct 19</span>
+</div>
+<div class="bg-surface-container px-4 py-2 rounded-lg flex items-center gap-2 border border-outline-variant/50">
+<span class="material-symbols-outlined text-tertiary text-sm">payments</span>
+<span class="text-label-md font-label-md text-on-surface">$950</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-4 bg-surface-container-lowest border border-outline-variant rounded-lg p-4 hover:border-primary transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined">train</span>
+</div>
+<div class="flex-grow">
+<h4 class="text-label-md font-label-md text-on-surface">Shinkansen to Kyoto</h4>
+<p class="text-body-sm text-on-surface-variant">Morning bullet train.</p>
+</div>
+</div>
+</div>
+<button class="mt-6 text-primary text-label-md font-label-md flex items-center gap-2 hover:underline">
+<span class="material-symbols-outlined text-sm">add</span> Add Activity
+                    </button>
+</div>
+</div>
+<!-- Add Section Button -->
+<div class="relative pt-4">
+<div class="absolute -left-[43px] md:-left-[59px] top-[2.5rem] w-5 h-5 rounded-full bg-surface border-4 border-outline-variant/50"></div>
+<button class="w-full border-2 border-dashed border-outline-variant hover:border-primary bg-surface/50 hover:bg-surface-container-low rounded-xl p-8 flex flex-col items-center justify-center gap-3 transition-all duration-200 group text-on-surface-variant hover:text-primary">
+<div class="w-12 h-12 rounded-full bg-surface-container border border-outline-variant group-hover:bg-primary-container group-hover:text-on-primary-container group-hover:border-primary/30 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-2xl">add</span>
+</div>
+<span class="text-headline-md font-headline-md font-medium">Add another Section</span>
+<span class="text-body-md font-body-md">Create a new leg for your journey</span>
+</button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="bg-surface/90 dark:bg-inverse-surface/90 backdrop-blur-xl fixed bottom-0 w-full rounded-t-xl z-50 border-t border-outline-variant/20 shadow-lg flex justify-around items-center h-16 px-4 md:hidden">
+<button class="flex flex-col items-center justify-center text-on-secondary-fixed-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">home</span>
+<span class="text-label-sm font-label-sm mt-1">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-secondary-fixed-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">explore</span>
+<span class="text-label-sm font-label-sm mt-1">Explore</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary dark:text-inverse-primary font-bold scale-90 duration-75">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+<span class="text-label-sm font-label-sm mt-1">Plan</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-secondary-fixed-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="text-label-sm font-label-sm mt-1">Profile</span>
+</button>
+</nav>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface w-full py-12 px-margin-desktop mt-auto border-t border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max-width mx-auto">
+<div class="mb-8 md:mb-0">
+<span class="text-headline-md font-headline-md text-primary font-bold tracking-tight">GlobeTrotter</span>
+<p class="text-body-md font-body-md text-on-surface mt-4">© 2024 GlobeTrotter Premium Travel. All rights reserved.</p>
+</div>
+<div>
+<a class="block text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors mb-2" href="#">Terms</a>
+</div>
+<div>
+<a class="block text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors mb-2" href="#">Privacy</a>
+</div>
+<div>
+<a class="block text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors mb-2" href="#">Careers</a>
+<a class="block text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors mb-2" href="#">Press</a>
+</div>
+</div>
+</footer>
+</body></html>

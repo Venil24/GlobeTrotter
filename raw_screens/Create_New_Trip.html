@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GlobeTrotter - Create a New Trip</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#596980",
+                      "on-primary-container": "#e3e6ff",
+                      "error": "#ba1a1a",
+                      "background": "#f7f9fb",
+                      "surface-variant": "#e0e3e5",
+                      "error-container": "#ffdad6",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "on-error": "#ffffff",
+                      "secondary": "#565e74",
+                      "on-tertiary-container": "#dbe9ff",
+                      "primary-fixed": "#dce1ff",
+                      "on-secondary": "#ffffff",
+                      "on-surface-variant": "#434656",
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "on-error-container": "#93000a",
+                      "surface-dim": "#d8dadc",
+                      "secondary-container": "#dae2fd",
+                      "on-surface": "#191c1e",
+                      "surface": "#f7f9fb",
+                      "outline": "#737688",
+                      "surface-container": "#eceef0",
+                      "on-background": "#191c1e",
+                      "tertiary": "#415166",
+                      "primary-container": "#0055ff",
+                      "surface-bright": "#f7f9fb",
+                      "inverse-primary": "#b6c4ff",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "surface-container-high": "#e6e8ea",
+                      "surface-tint": "#004dea",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "on-primary-fixed": "#001551",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "primary": "#0041c8",
+                      "primary-fixed-dim": "#b6c4ff",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#131b2e",
+                      "tertiary-fixed": "#d3e4fe",
+                      "secondary-fixed": "#dae2fd",
+                      "on-secondary-fixed-variant": "#3f465c",
+                      "on-secondary-container": "#5c647a",
+                      "outline-variant": "#c3c5d9",
+                      "inverse-surface": "#2d3133",
+                      "surface-container-highest": "#e0e3e5",
+                      "surface-container-low": "#f2f4f6",
+                      "on-primary-fixed-variant": "#0039b3"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base-unit": "4px",
+                      "margin-desktop": "40px",
+                      "gutter": "24px",
+                      "margin-mobile": "16px",
+                      "container-max-width": "1280px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Geist"
+                      ],
+                      "label-sm": [
+                              "Geist"
+                      ],
+                      "headline-lg": [
+                              "Geist"
+                      ],
+                      "headline-md": [
+                              "Geist"
+                      ],
+                      "label-md": [
+                              "Geist"
+                      ],
+                      "body-md": [
+                              "Geist"
+                      ],
+                      "display-lg": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Geist"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body { font-family: 'Geist', sans-serif; }
+      </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased">
+<!-- TopNavBar -->
+<nav class="bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-outline-variant/30 dark:border-outline/20 shadow-sm hidden md:block">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max-width mx-auto h-16">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary tracking-tight">GlobeTrotter</div>
+<div class="flex space-x-6">
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 text-label-md font-label-md" href="#">Discover</a>
+<a class="text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary pb-1 font-bold hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 text-label-md font-label-md" href="#">My Trips</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 text-label-md font-label-md" href="#">Community</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 text-label-md font-label-md" href="#">Calendar</a>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<img alt="User avatar" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="A clean, minimalist user avatar showing a professional smiling person in a bright studio setting. The lighting is soft and even, highlighting their features against a pristine white background. The overall tone is approachable and modern, suitable for a corporate or premium travel application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYSZchBtuutz3Lq5oEMT8JkIVkPaHmCyvE-5vy0aLVUl3KvPRAXQXXZRD1ba5FXgNN058MoBseGPteNqLdVRPxaXbwPxG1Mh0b6omfbzEkdYdQHBumMZ7uqlK8KOVRF6k3liJwFmxJVHrX9tTbf67o_vH6-UaoCdSInaNo88hX1HGCb1srUnBUYRP98CDTQp-G2E5jeLP4IgyCxwzPfoxDzjJyKE3HVQo6lH70zD1vbgh7v10DNdGy"/>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-8 pb-32 px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto w-full">
+<header class="mb-12">
+<h1 class="text-headline-lg font-headline-lg md:text-display-lg md:font-display-lg text-on-surface mb-2">Plan a new trip</h1>
+<p class="text-body-md font-body-md text-on-surface-variant">Define the core details of your upcoming adventure.</p>
+</header>
+<form class="space-y-12">
+<!-- Trip Details Section -->
+<section class="bg-surface rounded-xl border border-outline-variant/50 p-6 md:p-8 shadow-sm">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="space-y-2">
+<label class="block text-label-md font-label-md text-on-surface" for="tripName">Trip Title</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow" id="tripName" placeholder="e.g., Summer in Kyoto" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="block text-label-md font-label-md text-on-surface" for="destination">Destination</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">location_on</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg pl-10 pr-4 py-3 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow" id="destination" placeholder="Search places..." type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-label-md font-label-md text-on-surface" for="startDate">Start Date</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow text-on-surface-variant" id="startDate" type="date"/>
+</div>
+<div class="space-y-2">
+<label class="block text-label-md font-label-md text-on-surface" for="endDate">End Date</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-shadow text-on-surface-variant" id="endDate" type="date"/>
+</div>
+</div>
+</section>
+<!-- Suggestions Section -->
+<section>
+<div class="mb-6 flex justify-between items-end border-b border-outline-variant/30 pb-4">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Suggestions for Places to Visit/Activities</h2>
+<p class="text-label-md font-label-md text-on-surface-variant mt-1">Select items to include in your itinerary draft.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter">
+<!-- Suggestion Card 1 -->
+<label class="group cursor-pointer relative bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col h-full">
+<div class="relative h-48 w-full overflow-hidden">
+<img alt="Activity Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A breathtaking view of an ancient temple nestled in a lush, green mountain valley during early morning light. The mist hangs low, creating a serene and mystical atmosphere. The architecture is detailed and traditional, shot in a high-end travel photography style with vibrant but natural colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeZpDoSxTOVYqqlmYTm343ah70QNDAavAlqe6UVHXriiO__-BBmCtEAOt3z6EgCe4y0hX7we-Gq5e9ArA1nEoTg-cBZWY7vaHdrrz5Q0P5ZO5I6XYEKFh7-_72KQz_COSa6xvWy8pbOwzougUBb4czNsz764onFbVFCse7WqGq0dm-bz0CRw9k3wJIFNyDf2E-Q4tiXDhQsk0fI38HdND_JGEsDP9vtC2JAl__rf0mjbEwgtD7osKh"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest/80 backdrop-blur-sm rounded-full p-1 border border-outline-variant/50">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary bg-transparent cursor-pointer" type="checkbox"/>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-sm font-label-sm text-tertiary uppercase tracking-wider">Sightseeing</span>
+<div class="flex items-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] mr-1" data-icon="star">star</span>
+<span class="text-label-sm font-label-sm">4.8</span>
+</div>
+</div>
+<h3 class="text-body-lg font-body-lg font-semibold text-on-surface mb-2">Historic Mountain Temple</h3>
+<p class="text-label-md font-label-md text-on-surface-variant line-clamp-2 mt-auto">A serene half-day excursion exploring ancient architecture and scenic trails.</p>
+</div>
+</label>
+<!-- Suggestion Card 2 -->
+<label class="group cursor-pointer relative bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col h-full">
+<div class="relative h-48 w-full overflow-hidden">
+<img alt="Activity Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A bustling local food market alive with vibrant colors and activity. Food stalls are piled high with fresh produce, spices, and local delicacies. The lighting is warm and inviting, capturing the energy and cultural richness of the scene in a documentary travel style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe-OviNTZSQSkS2O2YU7fjvvVXN08UIP61Y-t7zQ5nPP4ADoqELMfVl0Ye1ysqw9DRc40Aic19Z36FrsB8RXfxSGk6OPxkKQ_dAgtRmnMK9p3gaTFmJd-Iw8X9hGoQ6hvpYhuxQWjxcoB1pMBz3W65-6D_EOBrpXNnLG3gyrX81ppy5KZc-KuyvWjaqJ7Kftx_spGOT8ZXH7R1K8ruMo9aHIv4CKuBY-S-GV5iRUuUekqIQUV1cZAP"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest/80 backdrop-blur-sm rounded-full p-1 border border-outline-variant/50">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary bg-transparent cursor-pointer" type="checkbox"/>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-sm font-label-sm text-tertiary uppercase tracking-wider">Culinary</span>
+<div class="flex items-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] mr-1" data-icon="star">star</span>
+<span class="text-label-sm font-label-sm">4.9</span>
+</div>
+</div>
+<h3 class="text-body-lg font-body-lg font-semibold text-on-surface mb-2">Local Market Food Tour</h3>
+<p class="text-label-md font-label-md text-on-surface-variant line-clamp-2 mt-auto">Taste authentic street food and learn about regional ingredients with a local guide.</p>
+</div>
+</label>
+<!-- Suggestion Card 3 -->
+<label class="group cursor-pointer relative bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col h-full">
+<div class="relative h-48 w-full overflow-hidden">
+<img alt="Activity Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A stunning sunset over a rugged coastline, viewed from a sleek, modern catamaran. The sky is ablaze with orange and purple hues, reflecting on the calm waters. The composition conveys luxury, relaxation, and the beauty of nature." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCy1BxgtrvVxr9uLc5rwrbQh_3kU-XuXWiOod2ARd1wYnK7lcQda_leWxvdF62t5e3f5i5L7OqC2_R-RvbigyENEwRzIANhJibnBU3KQOLffL5XrlSZlHe5V-JjaQaVDLttl2lV8XCit8IX4UP4LpEe2h7G1Y0YLltCRsDnthKsdJFLiV4_mpWrcZPKGcv6pAynzS5dfm6qIbR38U8EtTPxPH6gLI0puS4jCfXmG5kLqijqFIuH103I"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest/80 backdrop-blur-sm rounded-full p-1 border border-outline-variant/50">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary bg-transparent cursor-pointer" type="checkbox"/>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-sm font-label-sm text-tertiary uppercase tracking-wider">Relaxation</span>
+<div class="flex items-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] mr-1" data-icon="star">star</span>
+<span class="text-label-sm font-label-sm">4.7</span>
+</div>
+</div>
+<h3 class="text-body-lg font-body-lg font-semibold text-on-surface mb-2">Sunset Coastal Cruise</h3>
+<p class="text-label-md font-label-md text-on-surface-variant line-clamp-2 mt-auto">Enjoy breathtaking views and light refreshments on a luxury evening sail.</p>
+</div>
+</label>
+<!-- Suggestion Card 4 -->
+<label class="group cursor-pointer relative bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden hover:shadow-md transition-shadow duration-300 flex flex-col h-full">
+<div class="relative h-48 w-full overflow-hidden">
+<img alt="Activity Image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A modern art gallery interior with expansive white walls, minimalist architecture, and thought-provoking installations. Natural light floods in from large skylights, creating a bright, airy, and sophisticated atmosphere typical of a premium cultural experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5Qd2K1B_DqBes8tvhmwiu4CcjVnMbjprdmeWpubWLbwYMHb-ltj9fN8Dbb3qmMUIKN9fq-Ng137r_hf8DuIhDFmY4fF9bnSCLanTifU6gY-fr1OHmQZllrwTXJY68Suc0IX4lRJZa3GM4dkRlj4wYX2cOT3_1x8DpzwtCcFeOvt1m5jjFUpPpeTqV43tgPkxWsfmVPGAIn6yeHC-WiQ7mLsS4IYe30RhF0Y5tfE37WNzc_ja15zYW"/>
+<div class="absolute top-3 right-3 bg-surface-container-lowest/80 backdrop-blur-sm rounded-full p-1 border border-outline-variant/50">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary bg-transparent cursor-pointer" type="checkbox"/>
+</div>
+</div>
+<div class="p-4 flex flex-col flex-grow">
+<div class="flex items-center justify-between mb-1">
+<span class="text-label-sm font-label-sm text-tertiary uppercase tracking-wider">Culture</span>
+<div class="flex items-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] mr-1" data-icon="star">star</span>
+<span class="text-label-sm font-label-sm">4.6</span>
+</div>
+</div>
+<h3 class="text-body-lg font-body-lg font-semibold text-on-surface mb-2">Modern Art District Tour</h3>
+<p class="text-label-md font-label-md text-on-surface-variant line-clamp-2 mt-auto">Explore contemporary galleries and street art in the city's creative hub.</p>
+</div>
+</label>
+</div>
+</section>
+<!-- Sticky Bottom Actions -->
+<div class="fixed bottom-0 left-0 w-full bg-surface-container-lowest/95 backdrop-blur-md border-t border-outline-variant/30 p-4 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] z-40 hidden md:flex justify-end px-margin-desktop">
+<div class="flex space-x-4 max-w-container-max-width mx-auto w-full justify-end">
+<button class="px-6 py-3 bg-surface-container-lowest text-on-surface border border-outline hover:bg-surface-container transition-colors rounded-lg text-label-md font-label-md font-medium" type="button">
+                        Cancel
+                    </button>
+<button class="px-8 py-3 bg-primary text-on-primary hover:bg-primary/90 transition-colors rounded-lg text-label-md font-label-md font-medium shadow-sm flex items-center" type="submit">
+                        Continue to Itinerary
+                        <span class="material-symbols-outlined ml-2 text-[20px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Mobile Action Button (in document flow) -->
+<div class="md:hidden mt-8 flex flex-col space-y-4">
+<button class="w-full py-4 bg-primary text-on-primary hover:bg-primary/90 transition-colors rounded-xl text-body-md font-body-md font-medium shadow-sm flex justify-center items-center" type="submit">
+                    Continue to Itinerary
+                    <span class="material-symbols-outlined ml-2 text-[20px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="w-full py-4 bg-transparent text-primary hover:bg-surface-variant/50 transition-colors rounded-xl text-body-md font-body-md font-medium" type="button">
+                    Cancel
+                </button>
+</div>
+</form>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="bg-surface/90 dark:bg-inverse-surface/90 backdrop-blur-xl fixed bottom-0 w-full rounded-t-xl z-50 border-t border-outline-variant/20 shadow-lg flex justify-around items-center h-16 px-4 md:hidden">
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant active:bg-surface-container transition-colors rounded-lg p-2" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant active:bg-surface-container transition-colors rounded-lg p-2" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="explore">explore</span>
+<span class="text-label-sm font-label-sm">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-inverse-primary font-bold active:bg-surface-container transition-colors rounded-lg p-2" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="add_circle">add_circle</span>
+<span class="text-label-sm font-label-sm">Plan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant active:bg-surface-container transition-colors rounded-lg p-2" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="text-label-sm font-label-sm">Profile</span>
+</a>
+</nav>
+</body></html>

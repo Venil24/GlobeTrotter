@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Activity / City Search - GlobeTrotter</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Geist', sans-serif; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#596980",
+                        "on-primary-container": "#e3e6ff",
+                        "error": "#ba1a1a",
+                        "background": "#f7f9fb",
+                        "surface-variant": "#e0e3e5",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-error": "#ffffff",
+                        "secondary": "#565e74",
+                        "on-tertiary-container": "#dbe9ff",
+                        "primary-fixed": "#dce1ff",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#434656",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#d8dadc",
+                        "secondary-container": "#dae2fd",
+                        "on-surface": "#191c1e",
+                        "surface": "#f7f9fb",
+                        "outline": "#737688",
+                        "surface-container": "#eceef0",
+                        "on-background": "#191c1e",
+                        "tertiary": "#415166",
+                        "primary-container": "#0055ff",
+                        "surface-bright": "#f7f9fb",
+                        "inverse-primary": "#b6c4ff",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "surface-container-high": "#e6e8ea",
+                        "surface-tint": "#004dea",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "on-primary-fixed": "#001551",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary": "#0041c8",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#131b2e",
+                        "tertiary-fixed": "#d3e4fe",
+                        "secondary-fixed": "#dae2fd",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-secondary-container": "#5c647a",
+                        "outline-variant": "#c3c5d9",
+                        "inverse-surface": "#2d3133",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-container-low": "#f2f4f6",
+                        "on-primary-fixed-variant": "#0039b3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base-unit": "4px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "container-max-width": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Geist"],
+                        "label-sm": ["Geist"],
+                        "headline-lg": ["Geist"],
+                        "headline-md": ["Geist"],
+                        "label-md": ["Geist"],
+                        "body-md": ["Geist"],
+                        "display-lg": ["Geist"],
+                        "body-lg": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface/80 dark:bg-inverse-surface/80 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-outline-variant/30 dark:border-outline/20 shadow-sm">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max-width mx-auto h-16">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-inverse-primary tracking-tight">GlobeTrotter</div>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 text-label-md font-label-md" href="#">Discover</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 text-label-md font-label-md" href="#">My Trips</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 text-label-md font-label-md" href="#">Community</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200 text-label-md font-label-md" href="#">Calendar</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="text-primary dark:text-inverse-primary hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<img alt="User avatar" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A small circular user avatar showing a smiling person in professional lighting, highly detailed, vibrant colors, clear focus. Aspirational premium travel aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmLqw5QJyHTRmuxTsYB2DxEG_e7ucgTXBdbluybFAcnykQuv_27180qY1HsK2XS4e3lFnk_NhKTaxpoS5nfO-xXx39WvomTnbdQ0hhzRfwVh3yCeF0xhxQ5_mFo3qTCfFtR9zpws5-CAAbYEBkZ006-vcn0yeCgJN6yTAPHZp37azKcW5aU-4tP30HpbQLuMSfgqSPozcquacDE65Etc6jqGqBNz16bSqQJ21iST6Q6-Q_9KzOodaX"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-8">
+<!-- Search and Controls -->
+<section class="mb-12">
+<div class="flex flex-col md:flex-row gap-4 items-center bg-surface p-4 rounded-xl border border-outline-variant/50 shadow-sm">
+<!-- Search Bar -->
+<div class="flex-grow w-full relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-3 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors bg-white text-body-md font-body-md text-on-surface" placeholder="Search activities or cities..." type="text" value="Paragliding"/>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap md:flex-nowrap gap-3 w-full md:w-auto">
+<div class="relative w-full md:w-auto">
+<select class="w-full appearance-none bg-white border border-outline-variant rounded-lg py-3 pl-4 pr-10 text-label-md font-label-md text-on-surface focus:border-primary focus:outline-none cursor-pointer">
+<option>Group by</option>
+<option>Location</option>
+<option>Category</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">expand_more</span>
+</div>
+<div class="relative w-full md:w-auto">
+<select class="w-full appearance-none bg-white border border-outline-variant rounded-lg py-3 pl-4 pr-10 text-label-md font-label-md text-on-surface focus:border-primary focus:outline-none cursor-pointer">
+<option>Filter</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">tune</span>
+</div>
+<div class="relative w-full md:w-auto">
+<select class="w-full appearance-none bg-white border border-outline-variant rounded-lg py-3 pl-4 pr-10 text-label-md font-label-md text-on-surface focus:border-primary focus:outline-none cursor-pointer">
+<option>Sort by</option>
+<option>Highest Rated</option>
+<option>Most Popular</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-outline">sort</span>
+</div>
+</div>
+</div>
+<h1 class="text-headline-md font-headline-md text-on-surface mt-8 mb-4">Results</h1>
+</section>
+<!-- Results List -->
+<section class="flex flex-col gap-6 pb-24">
+<!-- Result Card 1 -->
+<article class="flex flex-col md:flex-row bg-white rounded-xl border border-outline-variant overflow-hidden hover:shadow-[0px_4px_12px_rgba(15,23,42,0.08)] transition-shadow duration-300">
+<div class="md:w-1/3 h-48 md:h-auto relative">
+<img alt="Paragliding Experience" class="w-full h-full object-cover" data-alt="A stunning wide-angle shot of a paraglider soaring over a lush green valley with snow-capped mountains in the background. Bright sunny day, clear blue skies. High quality professional travel photography, premium aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4K93JPsN_6EpyQy34NPjPyAZWqJAX6s3hrdFF-idCwAnbavo_0VjBxFtPd3jqOYamBtIH6Lc2BjCt4SUAqiiIVJ92IY_8ZEDRwYolSjmbx3OUfcnk7ZFZ-knP5f_PnfqM728Cz-lH_Z_-CDfXm0ueAdqFN3TmkATBla2x9eU38J-pXINO2OwP_N7FDxem_LZZ7C_Vq_qWreXSlPyJoIIBmlcwRg-ja_gwIoeAryJ2cQg8bv09bdMz"/>
+</div>
+<div class="p-6 md:w-2/3 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h2 class="text-headline-md font-headline-md text-on-surface">Alpine Paragliding Adventure</h2>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-label-md font-label-md font-bold">4.9</span>
+<span class="text-label-sm font-label-sm text-outline">(128)</span>
+</div>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4 line-clamp-3">Soar high above the Swiss Alps in this breathtaking tandem paragliding experience. Feel the rush of the wind and take in panoramic views of Interlaken's lakes and peaks. Suitable for beginners with expert instructors guiding every step.</p>
+</div>
+<div class="flex items-end justify-between mt-4">
+<div>
+<span class="text-label-sm font-label-sm text-outline uppercase tracking-wider block mb-1">From</span>
+<span class="text-headline-md font-headline-md font-bold text-on-surface">$250</span>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg text-label-md font-label-md font-semibold hover:bg-primary-fixed-variant transition-colors shadow-sm">Add to Itinerary</button>
+</div>
+</div>
+</article>
+<!-- Result Card 2 -->
+<article class="flex flex-col md:flex-row bg-white rounded-xl border border-outline-variant overflow-hidden hover:shadow-[0px_4px_12px_rgba(15,23,42,0.08)] transition-shadow duration-300">
+<div class="md:w-1/3 h-48 md:h-auto relative">
+<img alt="Coastal Paragliding" class="w-full h-full object-cover" data-alt="Coastal cliff paragliding at sunset, deep warm orange and purple hues in the sky, ocean waves crashing below. High definition, dramatic lighting, inspirational travel imagery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9-T8ARvR0uXVKrIIfxsjXrD0Aw7jRFfqtD_RGv3b9Yiu2u7N4VliHL67f3m4CdVK0atb9JmdLGvKbJHEeuU1tggPnw5gfGq84487uhTxQCH4RHhyYF1yIIdNODwmKwKnPzw-j4Fq0Ed71cB1mvoWkt64yXIrwfovxp8yJNzGc5wgU_zCRmiJ_0WV-71LYRGu8kioTFlUecOzwZDQdo4UykoT8w2a01WqVVEviQdNc4CBKSnmwXd5H"/>
+</div>
+<div class="p-6 md:w-2/3 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h2 class="text-headline-md font-headline-md text-on-surface">Sunset Coastal Flight</h2>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-label-md font-label-md font-bold">4.7</span>
+<span class="text-label-sm font-label-sm text-outline">(85)</span>
+</div>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4 line-clamp-3">Experience the magic of golden hour from the sky. This scenic flight takes you along rugged coastlines as the sun dips below the horizon, painting the ocean in spectacular colors. A truly unforgettable evening activity.</p>
+</div>
+<div class="flex items-end justify-between mt-4">
+<div>
+<span class="text-label-sm font-label-sm text-outline uppercase tracking-wider block mb-1">From</span>
+<span class="text-headline-md font-headline-md font-bold text-on-surface">$180</span>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg text-label-md font-label-md font-semibold hover:bg-primary-fixed-variant transition-colors shadow-sm">Add to Itinerary</button>
+</div>
+</div>
+</article>
+<!-- Result Card 3 -->
+<article class="flex flex-col md:flex-row bg-white rounded-xl border border-outline-variant overflow-hidden hover:shadow-[0px_4px_12px_rgba(15,23,42,0.08)] transition-shadow duration-300">
+<div class="md:w-1/3 h-48 md:h-auto relative">
+<img alt="Urban Edge Paragliding" class="w-full h-full object-cover" data-alt="A person preparing for a paragliding flight on a green hill overlooking a sprawling modern city. Clear day, sharp focus on the colorful paraglider wing. Modern urban travel aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr9h00rcVSQU-i00wrQ0XMU8j5i9QmKVaGhfq5xD_80r8e83e-_D9IjhPVg8XMGDS-djx_SbMXJaOI8hOR9OrlcajJvOlJBXviPvphuPFgVwVokCyQyPGWwX27U8SIwBQZ03GdWQiBZtWsLm7xfkkB7kb-vXLd7kBCIWxI9y65QQDbMGJQ8QiElZTbsEIt7wu3ukPacW7c7mgDz5Mv7OWhcRsifinXKj9WN-LsCjfyzicx1Sy6THp3"/>
+</div>
+<div class="p-6 md:w-2/3 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-2">
+<h2 class="text-headline-md font-headline-md text-on-surface">City Overlook Thermal Flight</h2>
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-label-md font-label-md font-bold">4.5</span>
+<span class="text-label-sm font-label-sm text-outline">(42)</span>
+</div>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4 line-clamp-3">Launch from the hills bordering the city and ride the thermals for an extended flight. Enjoy a unique perspective of urban architecture blending with natural landscapes. Perfect for thrill-seekers looking for a longer airtime.</p>
+</div>
+<div class="flex items-end justify-between mt-4">
+<div>
+<span class="text-label-sm font-label-sm text-outline uppercase tracking-wider block mb-1">From</span>
+<span class="text-headline-md font-headline-md font-bold text-on-surface">$320</span>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg text-label-md font-label-md font-semibold hover:bg-primary-fixed-variant transition-colors shadow-sm">Add to Itinerary</button>
+</div>
+</div>
+</article>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="bg-surface/90 dark:bg-inverse-surface/90 backdrop-blur-xl fixed bottom-0 w-full rounded-t-xl z-50 border-t border-outline-variant/20 shadow-lg flex justify-around items-center h-16 px-4 md:hidden">
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant active:bg-surface-container scale-90 duration-75" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-inverse-primary font-bold active:bg-surface-container scale-90 duration-75" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="text-label-sm font-label-sm">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant active:bg-surface-container scale-90 duration-75" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="text-label-sm font-label-sm">Plan</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-secondary-fixed-variant active:bg-surface-container scale-90 duration-75" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-sm font-label-sm">Profile</span>
+</a>
+</nav>
+</body></html>

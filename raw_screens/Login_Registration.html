@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GlobeTrotter - Login &amp; Registration</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#596980",
+                      "on-primary-container": "#e3e6ff",
+                      "error": "#ba1a1a",
+                      "background": "#f7f9fb",
+                      "surface-variant": "#e0e3e5",
+                      "error-container": "#ffdad6",
+                      "on-tertiary": "#ffffff",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "on-error": "#ffffff",
+                      "secondary": "#565e74",
+                      "on-tertiary-container": "#dbe9ff",
+                      "primary-fixed": "#dce1ff",
+                      "on-secondary": "#ffffff",
+                      "on-surface-variant": "#434656",
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "on-error-container": "#93000a",
+                      "surface-dim": "#d8dadc",
+                      "secondary-container": "#dae2fd",
+                      "on-surface": "#191c1e",
+                      "surface": "#f7f9fb",
+                      "outline": "#737688",
+                      "surface-container": "#eceef0",
+                      "on-background": "#191c1e",
+                      "tertiary": "#415166",
+                      "primary-container": "#0055ff",
+                      "surface-bright": "#f7f9fb",
+                      "inverse-primary": "#b6c4ff",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "surface-container-high": "#e6e8ea",
+                      "surface-tint": "#004dea",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "on-primary-fixed": "#001551",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#eff1f3",
+                      "primary": "#0041c8",
+                      "primary-fixed-dim": "#b6c4ff",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#131b2e",
+                      "tertiary-fixed": "#d3e4fe",
+                      "secondary-fixed": "#dae2fd",
+                      "on-secondary-fixed-variant": "#3f465c",
+                      "on-secondary-container": "#5c647a",
+                      "outline-variant": "#c3c5d9",
+                      "inverse-surface": "#2d3133",
+                      "surface-container-highest": "#e0e3e5",
+                      "surface-container-low": "#f2f4f6",
+                      "on-primary-fixed-variant": "#0039b3"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base-unit": "4px",
+                      "margin-desktop": "40px",
+                      "gutter": "24px",
+                      "margin-mobile": "16px",
+                      "container-max-width": "1280px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Geist"
+                      ],
+                      "label-sm": [
+                              "Geist"
+                      ],
+                      "headline-lg": [
+                              "Geist"
+                      ],
+                      "headline-md": [
+                              "Geist"
+                      ],
+                      "label-md": [
+                              "Geist"
+                      ],
+                      "body-md": [
+                              "Geist"
+                      ],
+                      "display-lg": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Geist"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      }
+              }
+            },
+          }
+    </script>
+<style>
+        body {
+            font-family: 'Geist', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .form-panel {
+            transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+        }
+        .hidden-panel {
+            transform: translateX(10%);
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+        .active-panel {
+            transform: translateX(0);
+            opacity: 1;
+            pointer-events: auto;
+            position: relative;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen flex overflow-hidden">
+<!-- Left visual area (Desktop) -->
+<div class="hidden lg:block lg:w-1/2 relative bg-surface-container-highest overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="A breathtaking, cinematic high-resolution photograph of a serene mountain landscape at dawn. The sky is painted with soft hues of pink, orange, and light blue, reflecting a calm, premium travel aesthetic. The scene is illuminated by gentle, natural light, emphasizing a modern light-mode style with a sophisticated palette of soft pastels and natural greens. The mood is aspirational and tranquil." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC7cC55-nuRe7oVBzSVrNFJYuNKNYqLnk3udAIRFODZwQ8ULpQV6VtaqXu2d10WY8cKeyMB54mKN4-2Pv83pAo99ZuxlsOW0osifyoioFyih4v_FQ_6nO3HmSKrda8K9FFHzCOmMvwa5XhFkP5UhBZw_tv-aGZaS8yDFCZ2fkHMfQPFwgNALisOntdz0TIsmp07o-u6RiN98lHLbzvxv-WwdQMg3sv5krHLvZmQLR1gq_GJbOLHYHe0')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/80 to-transparent"></div>
+<div class="absolute bottom-12 left-12">
+<h2 class="text-display-lg font-display-lg text-white mb-4">Discover Your World</h2>
+<p class="text-body-lg font-body-lg text-surface-container-low max-w-md">Join GlobeTrotter to plan, experience, and share unforgettable premium travel journeys.</p>
+</div>
+</div>
+<!-- Right form area -->
+<div class="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-margin-desktop overflow-y-auto relative h-full bg-surface">
+<div class="w-full max-w-md bg-surface-container-lowest rounded-xl shadow-md border border-outline-variant/30 p-8 relative overflow-hidden">
+<div class="text-center mb-8">
+<span class="material-symbols-outlined text-4xl text-primary mb-2">flight_takeoff</span>
+<h1 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">GlobeTrotter</h1>
+</div>
+<div class="relative min-h-[400px]">
+<!-- Login Panel -->
+<div class="form-panel active-panel flex flex-col gap-6" id="loginPanel">
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-2">Welcome Back</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">Sign in to access your itineraries.</p>
+</div>
+<form class="space-y-4">
+<div>
+<label class="block text-label-md font-label-md text-on-surface-variant mb-2">Username</label>
+<input class="w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" placeholder="Enter your username" type="text"/>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface-variant mb-2">Password</label>
+<input class="w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" placeholder="••••••••" type="password"/>
+</div>
+<div class="flex justify-end">
+<a class="text-label-md font-label-md text-primary hover:text-primary-container transition-colors" href="#">Forgot Password?</a>
+</div>
+<button class="w-full bg-primary text-on-primary text-label-md font-label-md py-3 rounded-lg shadow-sm hover:shadow-md hover:bg-surface-tint transition-all duration-200" type="button">
+                            Login Button
+                        </button>
+</form>
+<div class="text-center mt-4">
+<p class="text-body-md font-body-md text-on-surface-variant">
+                            New here? <button class="text-primary font-medium hover:underline focus:outline-none" onclick="toggleForms()">Create an account</button>
+</p>
+</div>
+</div>
+<!-- Registration Panel -->
+<div class="form-panel hidden-panel flex flex-col gap-6" id="registerPanel">
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-2">Create Account</h3>
+<p class="text-body-md font-body-md text-on-surface-variant">Join the premium travel community.</p>
+</div>
+<form class="space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-label-md font-label-md text-on-surface-variant mb-2">First Name</label>
+<input class="w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" type="text"/>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface-variant mb-2">Last Name</label>
+<input class="w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-label-md font-label-md text-on-surface-variant mb-2">Email Address</label>
+<input class="w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" type="email"/>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface-variant mb-2">Phone Number</label>
+<input class="w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" type="tel"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-label-md font-label-md text-on-surface-variant mb-2">City</label>
+<input class="w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" type="text"/>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface-variant mb-2">Country</label>
+<input class="w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors" type="text"/>
+</div>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface-variant mb-2">Additional Information</label>
+<textarea class="w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 text-body-md font-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors resize-none" rows="3"></textarea>
+</div>
+<button class="w-full bg-primary text-on-primary text-label-md font-label-md py-3 rounded-lg shadow-sm hover:shadow-md hover:bg-surface-tint transition-all duration-200 mt-4" type="button">
+                            Register Users
+                        </button>
+</form>
+<div class="text-center mt-4">
+<p class="text-body-md font-body-md text-on-surface-variant">
+                            Already have an account? <button class="text-primary font-medium hover:underline focus:outline-none" onclick="toggleForms()">Sign in</button>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+        function toggleForms() {
+            const loginPanel = document.getElementById('loginPanel');
+            const registerPanel = document.getElementById('registerPanel');
+            
+            if (loginPanel.classList.contains('active-panel')) {
+                loginPanel.classList.remove('active-panel');
+                loginPanel.classList.add('hidden-panel');
+                
+                registerPanel.classList.remove('hidden-panel');
+                registerPanel.classList.add('active-panel');
+            } else {
+                registerPanel.classList.remove('active-panel');
+                registerPanel.classList.add('hidden-panel');
+                
+                loginPanel.classList.remove('hidden-panel');
+                loginPanel.classList.add('active-panel');
+            }
+        }
+    </script>
+</body></html>
