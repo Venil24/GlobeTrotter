@@ -151,7 +151,7 @@ export default function AdminDashboardScreen() {
               {activeTab === 'Overview' && (
                 <>
                   {/* Real Analytics Overview Cards */}
-                  <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                  <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     {/* Total Users */}
                     <div className="bg-surface border border-outline-variant/30 rounded-xl p-5 flex flex-col justify-between shadow-sm">
                       <div className="flex justify-between items-start mb-3">
@@ -199,22 +199,6 @@ export default function AdminDashboardScreen() {
                       </div>
                       <div className="flex items-center text-xs font-semibold text-on-surface-variant">
                         <span>Across {stats?.total_trips || 0} user journeys</span>
-                      </div>
-                    </div>
-
-                    {/* Total Expenses Logged */}
-                    <div className="bg-surface border border-outline-variant/30 rounded-xl p-5 flex flex-col justify-between shadow-sm">
-                      <div className="flex justify-between items-start mb-3">
-                        <div>
-                          <p className="text-xs text-on-surface-variant uppercase font-bold tracking-wider mb-1">Total Logged Spend</p>
-                          <h3 className="text-2xl font-bold text-on-surface">₹{(stats?.total_expenses || 0).toLocaleString('en-IN')}</h3>
-                        </div>
-                        <div className="p-2.5 bg-emerald-100 text-emerald-800 rounded-lg flex items-center justify-center shrink-0">
-                          <span className="material-symbols-outlined text-[22px]">receipt_long</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center text-xs font-semibold text-emerald-700">
-                        <span>{stats?.total_posts || 0} Community Posts</span>
                       </div>
                     </div>
                   </section>
